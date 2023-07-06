@@ -1,0 +1,64 @@
+MK01.fjs:  34.0
+MK02.fjs:  41.0
+MK03.fjs:  258.0
+MK04.fjs:  88.0
+MK05.fjs:  208.0
+MK06.fjs:  130.0
+MK07.fjs:  171.0
+MK08.fjs:  575.0
+MK09.fjs:  470.0
+
+MK01.fjs:  31.0
+MK02.fjs:  31.0
+MK03.fjs:  159.0
+MK04.fjs:  50.0
+MK05.fjs:  196.0
+MK06.fjs:  103.0
+MK07.fjs:  150.0
+MK08.fjs:  447.0
+MK09.fjs:  566.0
+
+MK01.fjs:  44.0
+MK02.fjs:  72.0
+MK03.fjs:  247.0
+MK04.fjs:  71.0
+MK05.fjs:  207.0
+MK06.fjs:  137.0
+MK07.fjs:  193.0
+MK08.fjs:  622.0
+MK09.fjs:  530.0
+  MK01.fjs:  37.0
+  MK02.fjs:  47.0
+  MK03.fjs:  225.0
+  MK04.fjs:  66.0
+  MK07.fjs:  165.0
+  MK05.fjs:  212.0
+
+
+MK01.fjs:  69.0
+MK02.fjs:  67.0
+MK03.fjs:  454.0
+MK04.fjs:  185.0
+MK05.fjs:  262.0
+MK06.fjs:  184.0
+MK07.fjs:  303.0
+MK08.fjs:  715.0
+MK09.fjs:  697.0
+    MK01.fjs:  55.0
+    MK02.fjs:  60.0
+    MK03.fjs:  289.0
+    MK04.fjs:  117.0
+MK05.fjs:  290.0
+    MK06.fjs:  180.0
+    MK07.fjs:  285.0
+    MK08.fjs:  610.0
+    MK09.fjs:  585.0
+MK01.fjs:  89.0
+MK02.fjs:  81.0
+MK03.fjs:  371.0
+MK04.fjs:  157.0
+MK05.fjs:  281.0
+MK06.fjs:  164.0
+MK07.fjs:  320.0
+MK08.fjs:  644.0
+MK09.fjs:  618.0
