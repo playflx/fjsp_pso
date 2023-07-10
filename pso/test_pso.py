@@ -166,6 +166,7 @@ class test_pso():
                     if flag:
 
                         c = np.array(c).reshape(1, len(jobs))
+                        b = p1==c
                         Ma, Mt = self.back_MT(c, ma, mat)
                         # jm = np.random.rand(1, work_job.shape[1] * 2)
                         jm = np.random.rand(1, work_job.shape[1] * 3)

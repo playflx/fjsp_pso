@@ -1,3 +1,4 @@
+import copy
 import random
 
 from rbf.RBF import RBFNet,rbf_predict
@@ -68,6 +69,25 @@ class test_pso():
                     Tc2[i].append(Tm_1[i][j])
         return Mc1,Mc2,Tc1,Tc2
 
+    # 找列表中最大值，和第二大值的索引
+    def find_max_and_second_max(self,lst):
+        max_value = float('-inf')  # 将最大值初始化为负无穷大
+        second_max_value = float('-inf')  # 将第二大值初始化为负无穷大
+        max_index = len(lst)  # 最大值位置的索引
+        second_max_index = len(lst)  # 第二大值位置的索引
+
+        for index, value in enumerate(lst):
+            if value > max_value:
+                second_max_value = max_value
+                second_max_index = max_index
+                max_value = value
+                max_index = index
+            elif value > second_max_value:
+                second_max_value = value
+                second_max_index = index
+
+        return max_index, second_max_index
+
     # 粒子群算法
     def pso_total(self,iter):
         global obj_fjsp
@@ -96,9 +116,9 @@ class test_pso():
 
             if gen < self.generation-1:
                 # 粒子群算法
-                job_swarm=np.zeros((self.popsize,len(jobs)))
-                machine_swarm =np.zeros((self.popsize,len(jobs)))
-                machinetime_swarm = np.zeros((self.popsize,len(jobs)))
+                # job_swarm=np.zeros((self.popsize,len(jobs)))
+                # machine_swarm =np.zeros((self.popsize,len(jobs)))
+                # machinetime_swarm = np.zeros((self.popsize,len(jobs)))
                 for i in range(self.popsize):
                     job, machine, machine_time = work_job[i:i + 1], work_machine[i:i + 1], work_time[i:i + 1]
                     C_finish,_,_,_,_ = obj_fjsp.caculate(job,machine,machine_time)
@@ -121,11 +141,13 @@ class test_pso():
                     if C_finish<answer[i]:
                         res+=1
                         work_job[i]=job
+                        work_machine[i]=machine_new
+                        work_time[i]=time_new
                         job_initial[i]=initial_a
                         answer[i]=C_finish
                         pbest[i]=initial_a
-
-                train_x = np.random.rand(self.popsize, work_job.shape[1] * 2)
+                W = res / self.popsize
+                # train_x = np.random.rand(self.popsize, work_job.shape[1] * 2)
                 train_x = np.random.rand(self.popsize, work_job.shape[1] * 3)
                 for i in range(work_job.shape[0]):
                     train_x[i][0:len(work_job[i])] = work_job[i]
@@ -143,7 +165,7 @@ class test_pso():
                     weight_locals.append(local_w)
                     bias_locals.append(local_b)
                     spread_locals.append(local_s)
-                W = res/self.popsize
+
                 # 锦标赛选择策略
                 S_job,S_machine,S_time = np.zeros((self.popsize,len(jobs))),np.zeros((self.popsize,len(jobs))),np.zeros((self.popsize,len(jobs)))
                 S_answer = [0]*len(answer)
@@ -162,44 +184,58 @@ class test_pso():
                 work_machine=S_machine
                 work_time=S_time
                 answer=S_answer
-                si = 0
-                while (si < self.popsize - 1):
-                    r1 = random.randint(0, self.popsize - 1)
-                    r2 = random.randint(0, self.popsize - 1)
-                    p1 = work_job[r1:r1 + 1]
-                    p2 = work_job[r2:r2 + 1]
-                    ma, mat, wcr = self.to_MT(p1, work_machine[r1:r1 + 1], work_time[r1:r1 + 1])
-                    c = []
-                    for j in range(len(jobs)):
-                        r = random.randint(1, 2)
-                        if r == 1:
-                            c.append(p1[0, j])
-                        if r == 2:
-                            c.append(p2[0, j])
-                    flag = True
-                    for i in range(self.job_num):
-                        if c.count(i) > jobs.count(i):
-                            flag = False
-                            break
-                    if flag:
+                #pox 交叉
+                for i in range(self.popsize):
+                # for i in range(int(self.popsize/2)):
+                    r1 ,r2= self.find_max_and_second_max(answer)  # 找适应度最小的两个个体进行pox交叉
+                    # r1 = random.randint(0, self.popsize - 1)
+                    # r2 = random.randint(0, self.popsize - 1)
+                    p1 = work_job[r1].reshape(1,len(work_job[r1]))
+                    p2 = work_job[r2].reshape(1,len(work_job[r2]))
+                    # p1 = work_job[r1:r1 + 1]
+                    # p2 = work_job[r2:r2 + 1]  # 两条父染色体
+                    seq = [i + 1 for i in range(self.job_num)]
+                    random_length1 = np.random.randint(2, len(seq) - 1)
+                    for i in range(random_length1):  # 选出需要交叉的工件
+                        index = np.random.randint(0, len(seq))
+                        seq.pop(index)
+                    set1 = set(seq)  # 得到需要交叉的工件的集合
+                    child1 = copy.deepcopy(p1)
+                    child2 = copy.deepcopy(p2)
+                    remain1 = [i for i in range(len(p1[0])) if p1[0,i] in set1]
+                    remain2 = [i for i in range(len(p1[0])) if p2[0,i] in set1]
+                    cursor1, cursor2 = 0, 0
+                    for i in range(len(p1[0])):
+                        if p2[0,i] in set1:
+                            child1[0,remain1[cursor1]] = p2[0,i]
+                            cursor1 += 1
+                        if p1[0,i] in set1:
+                            child2[0,remain2[cursor2]] = p1[0,i]
+                            cursor2 += 1
+                    ma1 ,mt1 = work_machine[r1:r1 + 1],work_time[r1:r1 + 1]
+                    ma11,mt11,wrc = self.to_MT(p1,ma1,mt1)
+                    ma1_new,mt1_new = self.back_MT(child1,ma11,mt11)
+                    ma2 ,mt2 = work_machine[r2:r2 + 1] ,work_time[r2:r2 + 1]
+                    ma22,mt22,wrc = self.to_MT(p2,ma2,mt2)
+                    ma2_new,mt2_new = self.back_MT(child2,ma22,mt22)
+                    C_finish1,_,_,_,_ = obj_fjsp.caculate(child1,ma1_new,mt1_new)
+                    C_finish2,_,_,_,_ = obj_fjsp.caculate(child2,ma2_new,mt2_new)
+                    C_=max(answer)
+                    if  C_finish1 < C_finish2 :
+                        child = child1
+                        C_ = C_finish1
+                        ma,mt=ma1_new,mt1_new
+                    else:
+                        child = child2
+                        C_ = C_finish2
+                        ma,mt=ma2_new,mt2_new
+                    if C_ < max(answer):
+                        max_index = np.argmax(answer)
+                        answer[max_index]=C_
+                        work_job[max_index]=child
+                        work_machine[max_index]=ma
+                        work_time[max_index]=mt
 
-                        c = np.array(c).reshape(1, len(jobs))
-                        Ma, Mt = self.back_MT(c, ma, mat)
-                        # jm = np.random.rand(1, work_job.shape[1] * 2)
-                        jm = np.random.rand(1, work_job.shape[1] * 3)
-                        jm[0,0:work_job.shape[1]]=c[0]
-                        jm[0,work_job.shape[1]:2*work_job.shape[1]] = Ma[0]
-                        jm[0,work_job.shape[1]*2:] = Mt[0]
-                        ans = rbf_predict(center_locals[si], weight_locals[si], bias_locals[si], spread_locals[si],jm)
-                        ans1 = obj_fjsp.caculate(c,Ma,Mt)
-                        if ans < answer[si] :
-                            work_job[si] = c
-                            answer[si] = ans[0][0]
-                        # C_finish, _, _, _, _ = obj_fjsp.caculate(c, Ma, Mt)
-                        # if C_finish < answer[si]:
-                        #     work_job[si] = c
-                        #     answer[si] = C_finish
-                        si += 1
                 # 机器编码
                 job_1 = np.zeros((self.popsize, len(jobs)))
                 machine_1 = np.zeros((self.popsize, len(jobs)))

@@ -8,12 +8,13 @@ from pylab import mpl
 mpl.rcParams['font.sans-serif'] = ['SimHei']
 
 class pso():
-    def __init__(self,param_fjsp,generation,popsize,param_pso):
+    def __init__(self,param_fjsp,generation,popsize,param_pso,cross_prob):
         self.job_num = param_fjsp[0]  # 工件数
         self.machine_num = param_fjsp[1]  # 机器数
         self.pi = param_fjsp[2]  # 选择机器概率
         self.generation = generation  # 迭代次数
         self.popsize = popsize  # 粒子个数
+        self.cross_prob = cross_prob  # 交叉概率
         self.W = param_pso[0]
         self.C1 = param_pso[1]
         self.C2 = param_pso[2]
@@ -86,6 +87,25 @@ class pso():
                 best_index=answer.index(min(answer))
                 gbest=pbest[best_index]
                 print('种群初始的最小最大完工时间: %0.f'%(min(answer)))
+            # 锦标赛选择策略
+            S_job, S_machine, S_time = np.zeros((self.popsize, len(jobs))), np.zeros(
+                (self.popsize, len(jobs))), np.zeros((self.popsize, len(jobs)))
+            S_answer = [0] * len(answer)
+            for i in range(self.popsize):
+                select_index = random.sample(range(len(answer)), config.tournament_size)
+                fit = max(answer)
+                for j in select_index:
+                    if answer[j] < fit:
+                        fit = answer[j]
+                        index = j
+                S_job[i] = work_job[index]
+                S_machine[i] = work_machine[index]
+                S_time[i] = work_time[index]
+                S_answer[i] = answer[index]
+            work_job = S_job
+            work_machine = S_machine
+            work_time = S_time
+            answer = S_answer
             #工序编码
             res = 0
             for i in range(self.popsize):
@@ -110,6 +130,8 @@ class pso():
                 if C_finish<answer[i]:
                     res += 1
                     work_job[i]=job
+                    work_machine[i]=machine_new
+                    work_time[i]=time_new
                     job_initial[i]=initial_a
                     answer[i]=C_finish
                     pbest[i]=initial_a
@@ -117,39 +139,7 @@ class pso():
 
             W =res/len(jobs)
 
-            # if res > 0:
-            #     W = W * 1.1
-            # else:
-            #     W = 0.9 * W
             #均匀交叉
-            si=0
-            while si < self.popsize-1 :
-                r1 = random.randint(0,self.popsize-1)
-                r2 = random.randint(0,self.popsize-1)
-                p1 = work_job[r1:r1+1]
-                p2 = work_job[r2:r2+1]
-                ma,mat,wcr = self.to_MT(p1,work_machine[r1:r1+1],work_time[r1:r1+1])
-                c = []
-                for j in range(len(jobs)):
-                    r = random.randint(1, 2)
-                    if r == 1:
-                        c.append(p1[0,j])
-                    if r == 2:
-                        c.append(p2[0,j])
-                flag=True
-                for i in range(self.job_num):
-                    if c.count(i)>jobs.count(i):
-                        flag=False
-                        break
-                if flag:
-                    si+=1
-                    c=np.array(c).reshape(1,len(jobs))
-                    Ma, Mt = self.back_MT(c, ma, mat)
-                    C_finish, _, _, _, _ = obj_fjsp.caculate(c,Ma,Mt)
-                    if C_finish<answer[r1]:
-                        work_job[r1]=c
-                        answer[r1]=C_finish
-
 
 
             # 机器编码

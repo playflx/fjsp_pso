@@ -1,149 +1,100 @@
-MK01.fjs:  58.0
-MK02.fjs:  102.0
-MK03.fjs:  400.0
-MK04.fjs:  123.0
-MK05.fjs:  314.0
-MK06.fjs:  221.0
-MK07.fjs:  370.0
-MK08.fjs:  1041.0
-MK09.fjs:  881.0
-MK01.fjs:  63.0
-    MK02.fjs:  63.0
-    MK03.fjs:  379.0
-    MK04.fjs:  109.0
-    MK05.fjs:  294.0
-MK06.fjs:  226.0
-    MK07.fjs:  277.0
-    MK08.fjs:  707.0
-    MK09.fjs:  664.0
-
-MK01.fjs:  91.0
-MK02.fjs:  60.0
-MK03.fjs:  318.0
-MK04.fjs:  151.0
-MK05.fjs:  308.0
-MK06.fjs:  159.0
-MK07.fjs:  296.0
-MK08.fjs:  763.0
-MK09.fjs:  603.0
-
-MK01.fjs:  64.0
-MK02.fjs:  77.0
-MK03.fjs:  372.0
-MK04.fjs:  174.0
-MK05.fjs:  290.0
-MK06.fjs:  218.0
-MK07.fjs:  230.0
-MK08.fjs:  748.0
-MK09.fjs:  664.0
+# 2元 聚类中心数：4
+ 36
+ 24
+ 204
+ 48
+ 168
+ 33
+ 133
+ 523
+ 299
+ 165
 
 
-MK01.fjs:  64.0
-MK02.fjs:  68.0
-MK03.fjs:  396.0
-MK04.fjs:  118.0
-MK05.fjs:  298.0
-MK06.fjs:  192.0
-MK07.fjs:  314.0
-MK08.fjs:  847.0
-MK09.fjs:  666.0
-
-MK01.fjs:  61.0  worse 59
-MK02.fjs:  49.0  better 51
-MK03.fjs:  284.0 better 308
-MK04.fjs:  95.0  better 129
-MK05.fjs:  262.0  worse 239
-MK06.fjs:  156.0  worse 137
-MK07.fjs:  315.0  worse 212
-MK08.fjs:  779.0  worse 642
-MK09.fjs:  601.0  worse 550
-
-MK01.fjs:  43.0
-MK02.fjs:  43.0
-MK03.fjs:  239.0
-MK04.fjs:  175.0
-MK05.fjs:  278.0
-MK06.fjs:  179.0
-MK07.fjs:  199.0
-MK08.fjs:  543.0
-MK09.fjs:  624.0
-
-MK01.fjs:  50.0
-MK02.fjs:  49.0
-MK03.fjs:  238.0
-MK04.fjs:  130.0
-MK05.fjs:  262.0
-MK06.fjs:  126.0
-MK07.fjs:  222.0
-MK08.fjs:  806.0
-MK09.fjs:  637.0
-#加了锦标赛选择策略有效 10元 聚类中心数：5
-MK01.fjs:  37.0
-MK02.fjs:  37.0
-MK03.fjs:  233.0  204
-MK04.fjs:  68.0
-MK05.fjs:  222.0
-MK06.fjs:  114.0
-MK07.fjs:  211.0
-MK08.fjs:  603.0 523
-MK09.fjs:  483.0
-#8元 聚类中心数：5
-MK01.fjs:  51.0
-MK02.fjs:  36.0
-MK03.fjs:  251.0
-MK04.fjs:  64.0
-MK05.fjs:  198.0
-MK06.fjs:  106.0
-MK07.fjs:  188.0
-MK08.fjs:  622.0
-MK09.fjs:  529.0
-# 6元 聚类中心数：4
-MK01.fjs:  32.0
-MK02.fjs:  51.0
-MK03.fjs:  208.0
-MK04.fjs:  79.0
-MK05.fjs:  223.0
-MK06.fjs:  122.0
-MK07.fjs:  197.0
-MK08.fjs:  539.0
-MK09.fjs:  539.0
-# 6元 聚类中心数：5
-MK01.fjs:  34.0     36
-MK02.fjs:  39.0     24
-MK03.fjs:  242.0    204
-MK04.fjs:  50.0     48
-MK05.fjs:  199.0    168
-MK06.fjs:  108.0    33
-MK07.fjs:  108.0    133
-MK08.fjs:  522.0    523
-MK09.fjs:  582.0    299
-# 4元 聚类中心数：5
-MK01.fjs:  32.0
+工序交叉 交叉概率0.8
+MK01.fjs:  42.0
 MK02.fjs:  35.0
-MK03.fjs:  276.0
-MK04.fjs:  74.0
-MK05.fjs:  252.0
-MK06.fjs:  130.0
-MK07.fjs:  239.0
-MK08.fjs:  717.0
-MK09.fjs:  478.0
-# 3元 聚类中心数：5
-MK01.fjs:  49.0
-MK02.fjs:  38.0
-MK03.fjs:  266.0
-MK04.fjs:  66.0
-MK05.fjs:  197.0
+MK03.fjs:  224.0
+MK04.fjs:  73.0
+MK05.fjs:  180.0
+MK06.fjs:  112.0
+MK07.fjs:  166.0
+MK08.fjs:  523.0
+MK09.fjs:  371.0
+MK010.fjs:  319.0
+# w = 0.9
+MK01.fjs:  42.0
+MK02.fjs:  36.0
+MK03.fjs:  211.0
+MK04.fjs:  75.0
+MK05.fjs:  195.0
+MK06.fjs:  99.0
+MK07.fjs:  187.0
+MK08.fjs:  540.0
+MK09.fjs:  383.0
+MK010.fjs:  364.0
+# w=0.8
+MK01.fjs:  45.0
+MK02.fjs:  39.0
+MK03.fjs:  204.0
+MK04.fjs:  77.0
+MK05.fjs:  199.0
+MK06.fjs:  115.0
+MK07.fjs:  179.0
+MK08.fjs:  550.0
+MK09.fjs:  444.0
+MK010.fjs:  311.0
+# w=0.7
+MK01.fjs:  50.0
+MK02.fjs:  35.0
+MK03.fjs:  236.0
+MK04.fjs:  90.0
+MK05.fjs:  193.0
 MK06.fjs:  101.0
-MK07.fjs:  190.0
-MK08.fjs:  664.0
-MK09.fjs:  409.0
-# 3元 聚类中心数：4
-MK01.fjs:  33.0
-MK02.fjs:  40.0
-MK03.fjs:  233.0
-MK04.fjs:  64.0
-MK05.fjs:  214.0
-MK06.fjs:  127.0
-MK07.fjs:  192.0
-MK08.fjs:  532.0
-MK09.fjs:  479.0
+MK07.fjs:  173.0
+MK08.fjs:  540.0
+MK09.fjs:  513.0
+MK010.fjs:  322.0
+
+
+MK01.fjs:  44.0
+MK02.fjs:  36.0
+MK03.fjs:  225.0
+MK04.fjs:  73.0
+MK05.fjs:  187.0
+MK06.fjs:  104.0
+MK07.fjs:  184.0
+MK08.fjs:  524.0
+MK09.fjs:  379.0
+MK010.fjs:  344.0
+
+
+MK01.fjs:  44.0
+MK02.fjs:  42.0
+MK03.fjs:  215.0
+MK04.fjs:  106.0
+MK05.fjs:  199.0
+MK06.fjs:  108.0
+MK07.fjs:  180.0
+MK08.fjs:  588.0
+MK09.fjs:  420.0
+MK010.fjs:  334.0
+# 交叉操作中，选择两子代中好的一个替换掉种群中最差的个体
+MK01.fjs:  42.0
+MK02.fjs:  35.0
+MK03.fjs:  228.0
+MK04.fjs:  82.0
+MK05.fjs:  194.0
+MK06.fjs:  100.0
+MK07.fjs:  215.0
+MK08.fjs:  536.0
+MK09.fjs:  432.0
+MK010.fjs:  366.0
+# 交叉操作中，替换两子代对应种群中的个体
+MK01.fjs:  44.0
+MK02.fjs:  35.0
+MK03.fjs:  232.0
+MK04.fjs:  104.0
+MK05.fjs:  209.0
+MK06.fjs:  106.0
+MK07.fjs:  173.0

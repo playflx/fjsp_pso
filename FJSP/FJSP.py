@@ -32,6 +32,7 @@ class FJSP:
         n_machine = np.zeros((1, jobs.shape[1]))
         n_machinetime = np.zeros((1, jobs.shape[1]))
         index = [0] * self.job_num
+        machine = [0] * self.machine_num
         for idx, job in enumerate(jobs[0]):
             job=int(job)
             index_machine = self.process_mac_num[job][index[job]]  # 得到该工件加工到第几个工序可以使用的机器数
@@ -41,16 +42,30 @@ class FJSP:
             _time = self.T_machinetime[job,low:high]
             _machine=self.T_machine[job,low:high]
             index[job] += 1
+            if idx < int(jobs.shape[1]*0.8):
+                ma,ma_ind,mt=0,0,float('inf')
+                _time=_time.tolist()
+                _machine=_machine.tolist()
+                for ind,mach in enumerate(_machine):
+                    if _time[ind] + machine[int(mach)-1] < mt:
+                        mt = _time[ind] + machine[int(mach)-1]
+                        ma = int(mach)
+                        ma_ind = ind
+                machine[ma-1]+=_time[ma_ind]
+                n_machine[0,idx] = ma
+                n_machinetime[0,idx] = _time[ma_ind]
+            else:
             # 随机判断，选择哪道工序的哪台机器
             #可以使用迪杰斯特拉算法找到初始最优解------------------------------------------------------------------------------------------------------------
-            if np.random.rand() > self.pi:  # 选择最小加工时间机器
-                n_machinetime[0, idx] = min(_time)
-                index_time = np.argwhere(_time == n_machinetime[0, idx])
-                n_machine[0, idx] = _machine[index_time[0]]
-            else:
-                index_time = np.random.randint(0, len(_time), 1)
-                n_machine[0, idx] = _machine[index_time[0]]
-                n_machinetime[0, idx] = _time[index_time[0]]
+                # if np.random.rand() > self.pi:  # 选择最小加工时间机器
+                #     n_machinetime[0, idx] = min(_time)
+                #     index_time = np.argwhere(_time == n_machinetime[0, idx])
+                #     n_machine[0, idx] = _machine[index_time[0]]
+                # else:
+                    index_time = np.random.randint(0, len(_time), 1)
+                    n_machine[0, idx] = _machine[index_time[0]]
+                    n_machinetime[0, idx] = _time[index_time[0]]
+
         return jobs, n_machine, n_machinetime,initial_a
 
     # _time = self.T_machinetime[job][(index_tom - index_machine):index_tom]
